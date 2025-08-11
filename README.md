@@ -41,7 +41,7 @@
   <img src="profile.png" alt="Profil" width="300" style="margin: 10px;" />
   <img src="bookmarks.png" alt="Yer İmleri" width="300" style="margin: 10px;" />
   <img src="progress.png" alt="İlerleme" width="300" style="margin: 10px;" />
-  <img src="daily_goals.png" alt="Günlük Hedefler" width="300" style="margin: 10px;" />
+  <img src="goals.png" alt="Günlük Hedefler" width="300" style="margin: 10px;" />
 </div>
 
 ---
