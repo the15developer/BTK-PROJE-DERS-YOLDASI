@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DersYoldaşı - Bookmarks</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f7fd;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 240px;
+      background-color: #1d4ed8;
+      color: white;
+      height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background-color: #f4f7fd;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #1e293b;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #facc15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #1e293b;
+    }
+
+    .progress-bar {
+      background-color: #e5e7eb;
+      height: 6px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar > div {
+      height: 6px;
+      background-color: #f97316;
+      width: 90%;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .calendar-grid div {
+      padding: 10px;
+      background: #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .button {
+      background-color: #f97316;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icons span {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 18px;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>DersYoldaşı</h2>
+    <a href="/home">🏠 Panel</a>
+    <a href="/courses">📘 Kurslar</a>
+    <a href="/goals">✅ Günlük Hedefler</a>
+    <a href="/progress">📊 Süreç</a>
+    <a class="active" href="/bookmarks">🔖 Yer İmleri</a>
+    <a href="/profile">👤 Profil</a>
+    <a href="/">🚪 Çıkış</a>
+  </div>
+
+
+  
+  <div class="main-content">
+    <div class="header">
+      <h1>Yer İmleri</h1>
+      <div class="avatar">
+        <img src="/static/assets/images/profile_woman.png" alt="Profil" style="width: 100%; height: 100%; border-radius: 50%;" />
+      </div>
+    </div>
+  
+    <div style="margin-bottom: 30px;">
+      <!-- <h2 style="font-size: 20px; color: #1e293b; margin-bottom: 6px;">Yer İmleri</h2> -->
+      <p style="color: #64748b;">Öğrenme kaynaklarına hızlı erişmek için kaydettiğin kurslar ve makaleler burada görünür.</p>
+    </div>
+  
+    <div class="grid" style="display: flex; flex-direction: column; gap: 16px;">
+  
+      <div class="card" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+        <span class="material-symbols-outlined" style="font-size: 28px; color: #2563eb;">bookmark</span>
+        <div style="flex: 1;">
+          <h3 style="font-size: 17px; color: #1e293b; margin-bottom: 4px;">Python 101’e Giriş</h3>
+          <p style="font-size: 14px; color: #64748b;">Temel sözdizimi, değişkenler ve veri tipleri.</p>
+        </div>
+      </div>
+  
+      <div class="card" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+        <span class="material-symbols-outlined" style="font-size: 28px; color: #2563eb;">bookmark</span>
+        <div style="flex: 1;">
+          <h3 style="font-size: 17px; color: #1e293b; margin-bottom: 4px;">Veri Yapıları ve Algoritmalar</h3>
+          <p style="font-size: 14px; color: #64748b;">Modül 2 - listeler, yığınlar ve sıralama algoritmaları.</p>
+        </div>
+      </div>
+  
+      <div class="card" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+        <span class="material-symbols-outlined" style="font-size: 28px; color: #2563eb;">bookmark</span>
+        <div style="flex: 1;">
+          <h3 style="font-size: 17px; color: #1e293b; margin-bottom: 4px;">OOP’ye Giriş</h3>
+          <p style="font-size: 14px; color: #64748b;">Modül 3 - sınıflar, nesneler ve metodlar.</p>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div style="margin-top: 24px;">
+      <button class="button">+ Yeni Yer İmi Ekle</button>
+    </div>
+  </div>
+  
+
+  <script>
+    
+  </script>
+</body>
+</html>

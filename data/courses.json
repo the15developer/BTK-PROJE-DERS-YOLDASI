@@ -1,0 +1,69 @@
+[
+    {
+      "id": 101,
+      "baslik": "Python 101",
+      "aciklama": "Python programlamaya giriş kursu.",
+      "moduller": [
+        {
+          "modul_id": "101-1",
+          "baslik": "Değişkenler ve Veri Tipleri",
+          "aciklama": "Python'da değişken kullanımı ve veri tipleri"
+        },
+        {
+          "modul_id": "101-2",
+          "baslik": "Koşullar ve Döngüler",
+          "aciklama": "if-else yapıları ve for/while döngüleri"
+        },
+        {
+          "modul_id": "101-3",
+          "baslik": "Fonksiyonlar",
+          "aciklama": "Fonksiyon tanımlama ve çağırma"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "baslik": "Makine Öğrenmesi",
+      "aciklama": "Makine öğrenmesi temellerini öğrenin.",
+      "moduller": [
+        {
+          "modul_id": "102-1",
+          "baslik": "Makine Öğrenmesine Giriş",
+          "aciklama": "Temel kavramlar ve algoritma türleri"
+        },
+        {
+          "modul_id": "102-2",
+          "baslik": "Veri Hazırlama",
+          "aciklama": "Veri temizleme ve ön işleme"
+        },
+        {
+          "modul_id": "102-3",
+          "baslik": "Model Eğitimi",
+          "aciklama": "Model seçimi, eğitimi ve değerlendirme"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "baslik": "Web Geliştirme",
+      "aciklama": "Frontend ve backend geliştirme temelleri.",
+      "moduller": [
+        {
+          "modul_id": "103-1",
+          "baslik": "HTML ve CSS",
+          "aciklama": "Web sayfası yapısı ve stil verme"
+        },
+        {
+          "modul_id": "103-2",
+          "baslik": "JavaScript'e Giriş",
+          "aciklama": "Dinamik içerik oluşturma"
+        },
+        {
+          "modul_id": "103-3",
+          "baslik": "Backend Temelleri",
+          "aciklama": "Sunucu taraflı programlama ve veritabanı"
+        }
+      ]
+    }
+  ]
+  

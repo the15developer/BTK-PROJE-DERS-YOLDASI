@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "ad": "Ayşe Yılmaz",
+    "email": "ayse@example.com",
+    "sifre": "123456",
+    "kurslar": [
+      {
+        "id": 101,
+        "ad": "Python 101",
+        "egitmen": "Elif KAYA",
+        "baslangic_tarihi": "2025-07-10",
+        "durum": "Devam Ediyor",
+        "moduller": [
+          {
+            "modul_id": "101-1",
+            "baslik": "Değişkenler ve Veri Tipleri",
+            "tamamlanma": "100%"
+          },
+          {
+            "modul_id": "101-2",
+            "baslik": "Koşullar ve Döngüler",
+            "tamamlanma": "60%"
+          },
+          {
+            "modul_id": "101-3",
+            "baslik": "Fonksiyonlar",
+            "tamamlanma": "0%"
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "ad": "Web Geliştirme",
+        "egitmen": "Mustafa YILDIZ",
+        "baslangic_tarihi": "2025-07-15",
+        "durum": "Tamamlandı",
+        "moduller": [
+          {
+            "modul_id": "102-1",
+            "baslik": "HTML ve CSS",
+            "tamamlanma": "100%"
+          },
+          {
+            "modul_id": "102-2",
+            "baslik": "JavaScript'e Giriş",
+            "tamamlanma": "100%"
+          },
+          {
+            "modul_id": "102-3",
+            "baslik": "Backend Temelleri",
+            "tamamlanma": "100%"
+          }
+        ]
+      },
+      {
+        "id": 102,
+        "ad": "Makine Öğrenmesi",
+        "egitmen": "Leyla YILMAZ",
+        "baslangic_tarihi": "2025-07-20",
+        "durum": "Devam Ediyor",
+        "moduller": [
+          {
+            "modul_id": "103-1",
+            "baslik": "Makine Öğrenmesine Giriş",
+            "tamamlanma": "50%"
+          },
+          {
+            "modul_id": "103-2",
+            "baslik": "Veri Hazırlama",
+            "tamamlanma": "20%"
+          },
+          {
+            "modul_id": "103-3",
+            "baslik": "Model Eğitimi",
+            "tamamlanma": "0%"
+          }
+        ]
+      }
+    ]
+  }
+]

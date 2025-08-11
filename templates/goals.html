@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DersYoldaşı - Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f7fd;
+  display: flex;
+  height: 100vh; /* Add this */
+  overflow: hidden; /* Prevent scrolling on body */
+}
+
+    .sidebar {
+      width: 240px;
+      background-color: #1d4ed8;
+      color: white;
+      height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .main-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f4f7fd;
+  overflow-y: auto; /* Enables scrolling */
+}
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #1e293b;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #facc15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .greeting {
+      font-size: 22px;
+      color: #1e293b;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .progress-text {
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      background-color: #e5e7eb;
+      height: 10px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .progress-bar > div {
+      height: 100%;
+      background-color: #f97316;
+      width: 75%; /* Örnek: 3/4 tamamlandı */
+      transition: width 0.5s ease-in-out;
+    }
+    .goal-card {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+      height: 85px;
+      margin-top:20px;
+    }
+    .checkbox-circle {
+      width: 26px;
+      height: 26px;
+      border: 2.5px solid #2563eb;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .checkbox-circle.completed {
+      background-color: #2563eb;
+      border-color: #2563eb;
+    }
+    .checkbox-circle.completed::after {
+      content: "✓";
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      position: absolute;
+      user-select: none;
+    }
+    .goal-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .goal-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .goal-desc {
+      font-size: 14px;
+      color: #64748b;
+    }
+    .edit-button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 0.2s;
+    }
+    .edit-button:hover {
+      background-color: #1e40af;
+    }
+
+    .add-goal-button {
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    }
+
+    .add-goal-button:hover {
+    background-color: #1e40af;
+    }
+
+    .button {
+      background-color: #f97316;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icons span {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 18px;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>DersYoldaşı</h2>
+    <a href="/home">🏠 Panel</a>
+    <a href="/courses">📘 Kurslar</a>
+    <a class="active" href="/goals">✅ Günlük Hedefler</a>
+    <a href="/progress">📊 Süreç</a>
+    <a href="/bookmarks">🔖 Yer İmleri</a>
+    <a href="/profile">👤 Profil</a>
+    <a href="/">🚪 Çıkış</a>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+        <h1>Günlük Hedefler</h1>
+        <div class="avatar">👩‍💼</div>
+    </div>
+
+    <div>
+        <div class="greeting">Merhaba, Ayşe</div>
+        <div class="progress-text">3/4 hedef tamamlandı</div>
+        <div class="progress-bar"><div></div></div>
+    </div>
+
+    <div class="goal-card">
+        <div class="checkbox-circle completed"></div>
+        <div class="goal-info">
+          <div class="goal-title">Modül 1’i tamamla</div>
+          <div class="goal-desc">🏫 Temel kavramları öğren ve alıştırmaları yap.</div>
+        </div>
+        <button class="edit-button">Düzenle</button>
+    </div>
+
+    <div class="goal-card">
+        <div class="checkbox-circle completed"></div>
+        <div class="goal-info">
+          <div class="goal-title">Modül 2’yi tamamla</div>
+          <div class="goal-desc">👩🏻‍💻 Veri yapıları ve algoritmalara giriş.</div>
+        </div>
+        <button class="edit-button">Düzenle</button>
+    </div>
+
+    <div class="goal-card">
+        <div class="checkbox-circle completed"></div>
+        <div class="goal-info">
+          <div class="goal-title">Modül 3’ü tamamla</div>
+          <div class="goal-desc">🚀 Fonksiyonlar ve nesne yönelimli programlama.</div>
+        </div>
+        <button class="edit-button">Düzenle</button>
+    </div>
+
+    <div class="goal-card">
+        <div class="checkbox-circle"></div>
+        <div class="goal-info">
+          <div class="goal-title">Modül 4’ü tamamla</div>
+          <div class="goal-desc">⚙️ Dosya işlemleri ve hata yönetimi.</div>
+        </div>
+        <button class="edit-button">Düzenle</button>
+    </div>
+
+
+    <div style="margin-top: 30px;">
+        <button class="add-goal-button">+ Hedef Ekle</button>
+    </div>
+
+
+  </div>
+
+  <script>
+    
+  </script>
+</body>
+</html>

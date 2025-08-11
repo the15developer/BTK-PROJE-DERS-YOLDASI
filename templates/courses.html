@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DersYoldaşı - Kurslar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-p0Z+vXv1PL24pNqhWxDGmFCRsDYw6lbpZPqgL3Q+ck5+PVFG6ZbF+XW2qJdBTF3cK3f+Jx7kkZy2U4F6GJfBGA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f7fd;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background-color: #1d4ed8;
+      color: white;
+      height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .sidebar a i {
+      font-size: 18px;
+      color: white;
+      width: 20px;
+      text-align: center;
+      transition: color 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fbbf24;
+    }
+
+    .sidebar a:hover i,
+    .sidebar a.active i {
+      color: #fbbf24;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #1e293b;
+    }
+
+    .add-button {
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s;
+    }
+
+    .add-button:hover {
+      background-color: #2563eb;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .course-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .course-card h2 {
+      font-size: 18px;
+      color: #1e293b;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-card p {
+      font-size: 14px;
+      color: #475569;
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .course-card p i {
+      color: #1d4ed8;
+      width: 16px;
+      text-align: center;
+    }
+
+    .details-button {
+      margin-top: 10px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .details-button:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>DersYoldaşı</h2>
+    <a href="/home">🏠 Panel</a>
+    <a class="active" href="/courses">📘 Kurslar</a>
+    <a href="/goals">✅ Günlük Hedefler</a>
+    <a href="/progress">📊 Süreç</a>
+    <a href="/bookmarks">🔖 Yer İmleri</a>
+    <a href="/profile">👤 Profil</a>
+    <a href="/">🚪 Çıkış</a>
+  </div>
+
+  <!-- Modal (başlangıçta gizli) -->
+<div id="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 9999;">
+  <div style="background: white; padding: 20px; border-radius: 12px; width: 300px;">
+    <h2 style="margin-bottom: 16px;">Yeni Kurs Ekle</h2>
+    <form id="course-form">
+      <input type="text" id="ad" placeholder="Kurs Adı" required style="margin-bottom: 10px; width: 100%; padding: 8px;" />
+      <input type="text" id="egitmen" placeholder="Eğitmen" required style="margin-bottom: 10px; width: 100%; padding: 8px;" />
+      <input type="date" id="baslangic" required style="margin-bottom: 10px; width: 100%; padding: 8px;" />
+      <select id="durum" required style="margin-bottom: 10px; width: 100%; padding: 8px;">
+        <option value="">Durum Seç</option>
+        <option value="Devam Ediyor">Devam Ediyor</option>
+        <option value="Tamamlandı">Tamamlandı</option>
+      </select>
+      <button type="submit" style="background-color: #1d4ed8; color: white; padding: 8px 16px; border: none; border-radius: 8px;">Ekle</button>
+    </form>
+  </div>
+</div>
+<!-- Detay Modalı -->
+<div id="details-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 9999;">
+  <div style="background: white; padding: 20px; border-radius: 12px; width: 350px;">
+    <h2 style="margin-bottom: 16px;">Kurs Detayı</h2>
+    <div id="modal-content">
+      <!-- Dinamik içerik buraya gelecek -->
+    </div>
+    <button onclick="closeDetailsModal()" style="margin-top: 16px; background-color: #ef4444; color: white; padding: 8px 16px; border: none; border-radius: 8px;">Kapat</button>
+  </div>
+</div>
+
+
+
+  <div class="main-content">
+    <div class="header">
+      <h1>Kurslarım</h1>
+      <button class="add-button"><i class="fas fa-plus"></i> Yeni Kurs Ekle</button>
+    </div>
+
+    <div class="courses-grid">
+
+
+      
+      <!-- <div class="course-card">
+        <h2><i class="fas fa-book"></i> Python 101</h2>
+        <p><i class="fas fa-user"></i> Eğitmen: Elif Kaya</p>
+        <p><i class="fas fa-calendar-alt"></i> Başlangıç: 10 Temmuz 2025</p>
+        <p><i class="fas fa-chart-line"></i> Durum: Devam Ediyor</p>
+        <button class="details-button">Detaylar</button>
+      </div>
+
+      <div class="course-card">
+        <h2><i class="fas fa-book"></i> Web Geliştirme</h2>
+        <p><i class="fas fa-user"></i> Eğitmen: Elif Kaya</p>
+        <p><i class="fas fa-calendar-alt"></i> Başlangıç: 15 Temmuz 2025</p>
+        <p><i class="fas fa-chart-line"></i> Durum: Tamamlandı</p>
+        <button class="details-button">Detaylar</button>
+      </div>
+
+      <div class="course-card">
+        <h2><i class="fas fa-book"></i> Makine Öğrenmesi</h2>
+        <p><i class="fas fa-user"></i> Eğitmen: Elif Kaya</p>
+        <p><i class="fas fa-calendar-alt"></i> Başlangıç: 20 Temmuz 2025</p>
+        <p><i class="fas fa-chart-line"></i> Durum: Devam Ediyor</p>
+        <button class="details-button">Detaylar</button>
+      </div> -->
+
+
+    </div>
+  </div>
+</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const email = localStorage.getItem("email");
+    if (!email) return;
+
+    const response = await fetch("/get_courses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      alert("Kurslar yüklenemedi.");
+      return;
+    }
+
+    const kurslar = data.kurslar;
+    const grid = document.querySelector(".courses-grid");
+    grid.innerHTML = "";
+
+    kurslar.forEach((kurs) => {
+      const card = document.createElement("div");
+      card.className = "course-card";
+      card.innerHTML = `
+  <h2><i class="fas fa-book"></i> ${kurs.ad}</h2>
+  <p><i class="fas fa-user"></i> Eğitmen: ${kurs.egitmen}</p>
+  <p><i class="fas fa-calendar-alt"></i> Başlangıç: ${kurs.baslangic_tarihi}</p>
+  <p><i class="fas fa-chart-line"></i> Durum: ${kurs.durum}</p>
+  <button class="details-button">Detaylar</button>
+`;
+
+const btn = card.querySelector(".details-button");
+btn.addEventListener("click", () => openDetailsModal(kurs));
+
+      grid.appendChild(card);
+    });
+
+    // Modal açma butonu
+    document.querySelector(".add-button").addEventListener("click", () => {
+      document.getElementById("modal").style.display = "flex";
+    });
+
+    // Form gönderimi buraya ALINDI
+    document.getElementById("course-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = localStorage.getItem("email");
+      if (!email) {
+        alert("Giriş yapılmamış.");
+        return;
+      }
+
+      const yeniKurs = {
+        ad: document.getElementById("ad").value,
+        egitmen: document.getElementById("egitmen").value,
+        baslangic_tarihi: document.getElementById("baslangic").value,
+        durum: document.getElementById("durum").value,
+        email
+      };
+
+      const response = await fetch("/add_course", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(yeniKurs)
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        //alert("Kurs başarıyla eklendi!");
+        location.reload();
+      } else {
+        alert("Kurs eklenemedi.");
+      }
+    });
+  });
+
+  function openDetailsModal(kurs) {
+  const content = `
+    <p><strong>Kurs Adı:</strong> ${kurs.ad}</p>
+    <p><strong>Eğitmen:</strong> ${kurs.egitmen}</p>
+    <p><strong>Başlangıç Tarihi:</strong> ${kurs.baslangic_tarihi}</p>
+    <p><strong>Durum:</strong> ${kurs.durum}</p>
+  `;
+  document.getElementById("modal-content").innerHTML = content;
+  document.getElementById("details-modal").style.display = "flex";
+}
+
+function closeDetailsModal() {
+  document.getElementById("details-modal").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
